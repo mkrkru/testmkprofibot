@@ -25,7 +25,7 @@ async function run(ctx: Context & any) {
 
 fs.readdir(join(__dirname, 'cmds'), (err, files) => {
     if (err) return console.error(err);
-    files.filter(f => f.endsWith('.ts')).forEach(f => {
+    files.filter(f => f.endsWith(process.env.TS_NODE_DEV === 'true' ? '.ts' : '.js')).forEach(f => {
         const cmd = require(join(__dirname, 'cmds', f));
         cmd.misc.aliases.forEach((a: string) => bot.cmds.set(a, cmd));
     });
