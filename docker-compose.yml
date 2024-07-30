@@ -1,0 +1,17 @@
+services:
+  bot:
+    build: ./bot
+    restart: unless-stopped
+    links:
+      - mongo
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:latest
+    restart: unless-stopped
+    expose:
+      - 27017
+    volumes:
+      - mongo:/data/db
+volumes:
+  mongo:
